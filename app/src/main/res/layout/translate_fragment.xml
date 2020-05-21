@@ -1,0 +1,150 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".TranslateActivity">
+
+    <Spinner
+        android:id="@+id/sourceLangSelector"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginBottom="8dp"
+        android:spinnerMode="dialog"
+        android:text="Button"
+        app:layout_constraintBottom_toTopOf="@id/buttonSyncSource"
+        app:layout_constraintEnd_toStartOf="@id/imageView"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textInputLayout"
+        tools:listitem="@android:layout/list_content" />
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/textInputLayout"
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        app:layout_constraintBottom_toTopOf="@id/sourceLangSelector"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/sourceText"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="top"
+            android:hint="Translate" />
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <Spinner
+        android:id="@+id/targetLangSelector"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+
+        android:layout_marginBottom="8dp"
+        android:spinnerMode="dialog"
+        android:text="Button"
+        app:layout_constraintBottom_toBottomOf="@id/sourceLangSelector"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/imageView"
+        app:layout_constraintTop_toTopOf="@id/sourceLangSelector"
+        tools:listitem="@android:layout/list_content" />
+
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginRight="8dp"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"
+        android:src="@drawable/baseline_arrow_right_alt_black_24dp"
+        app:layout_constraintEnd_toStartOf="@+id/targetLangSelector"
+        app:layout_constraintStart_toEndOf="@+id/sourceLangSelector"
+        app:layout_constraintTop_toTopOf="@+id/sourceLangSelector" />
+
+    <ToggleButton
+        android:id="@+id/buttonSyncSource"
+        android:layout_width="120dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="8dp"
+        android:checkable="true"
+        android:text="Download Language"
+        android:textOff="@string/download_model"
+        android:textOn="@string/delete_model"
+        app:layout_constraintBottom_toTopOf="@+id/downloadedModels"
+        app:layout_constraintEnd_toEndOf="@+id/sourceLangSelector"
+        app:layout_constraintStart_toStartOf="@+id/sourceLangSelector"
+        app:layout_constraintTop_toBottomOf="@+id/sourceLangSelector" />
+
+    <ToggleButton
+        android:id="@+id/buttonSyncTarget"
+        android:layout_width="120dp"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:checkable="true"
+        android:textOff="@string/download_model"
+        android:textOn="@string/delete_model"
+        app:layout_constraintBottom_toBottomOf="@+id/buttonSyncSource"
+        app:layout_constraintEnd_toEndOf="@+id/targetLangSelector"
+        app:layout_constraintStart_toStartOf="@+id/targetLangSelector"
+        app:layout_constraintTop_toTopOf="@+id/buttonSyncSource" />
+
+    <ScrollView
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginRight="8dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/downloadedModels">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/targetText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:scrollbars="vertical"
+                android:text="Translated Text"
+                android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+                android:textSize="18sp" />
+
+        </LinearLayout>
+    </ScrollView>
+
+    <TextView
+        android:id="@+id/downloadedModels"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:text="Downloaded Models: XYZ"
+        app:layout_constraintEnd_toStartOf="@+id/imageView"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/buttonSyncSource"
+        app:layout_constraintTop_toBottomOf="@+id/buttonSyncSource" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
