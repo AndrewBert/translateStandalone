@@ -17,6 +17,9 @@
 package com.google.firebase.samples.apps.mlkit.translate
 
 import android.annotation.SuppressLint
+import android.content.ClipData
+import android.content.ClipboardManager
+import android.content.Context
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
@@ -30,8 +33,9 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.google.android.material.snackbar.Snackbar
-import com.google.firebase.samples.apps.mlkit.translate.databinding.TranslateFragmentBinding
 import com.google.firebase.samples.apps.mlkit.translate.TranslateViewModel.Language
+import com.google.firebase.samples.apps.mlkit.translate.databinding.TranslateFragmentBinding
+
 
 class TranslateFragment : Fragment() {
 
@@ -69,7 +73,8 @@ class TranslateFragment : Fragment() {
                 android.R.layout.simple_spinner_dropdown_item, viewModel.availableLanguages
         )
 
-        var init = true
+        var syncInit = true
+        var targetInit = true
 
         val downloadingSnackbar = Snackbar.make(view,"Downloading Language",
             Snackbar.LENGTH_INDEFINITE)
@@ -132,10 +137,10 @@ class TranslateFragment : Fragment() {
                 val language = adapter.getItem(sourceLangSelector.selectedItemPosition)
                 language?.let {
                     if (isChecked) {
-                        if(!init){
+                        if(!syncInit){
                             downloadingSnackbar.show()
                         }
-                        init = false
+                        syncInit = false
 
                         viewModel.downloadLanguage(language)
                     } else {
@@ -147,13 +152,30 @@ class TranslateFragment : Fragment() {
                 val language = adapter.getItem(targetLangSelector.selectedItemPosition)
                 language?.let {
                     if (isChecked) {
-                        downloadingSnackbar.show()
+                        //naive implementation
+                        if(!targetInit){
+                            downloadingSnackbar.show()
+                        }
+                        targetInit = false
+
                         viewModel.downloadLanguage(language)
                     } else {
                         viewModel.deleteLanguage(language)
                     }
                 }
+
+                    copyButton.setOnClickListener {
+                        val clipboard: ClipboardManager =
+                            context!!.getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
+                        val clip = ClipData.newPlainText(
+                            "TextView", binding.targetText.text
+                        )
+                        clipboard.setPrimaryClip(clip)
+                    }
+
             }
+
+
 
 
 
